@@ -1,0 +1,18 @@
+[
+    {
+      "photo": "1984.jpg",
+      "description": "Book 1: A Journey to the Unknown",
+      "price": 10.99
+    },
+    {
+      "photo": "brave_new_world.jpg",
+      "description": "Book 2: The Art of Learning",
+      "price": 15.49
+    },
+    {
+      "photo": "moby_dick.jpg",
+      "description": "Book 3: Adventures in React Native",
+      "price": 20.99
+    }
+  ]
+  

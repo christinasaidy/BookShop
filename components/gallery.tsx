@@ -1,35 +1,33 @@
-// components/Gallery.js
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
-const Gallery = ({ title, items }) => {
-  const handleAddToCart = (item) => {
-    alert(`${item.description} added to cart for $${item.price}!`);
-  };
+type Item = {
+  photo: any;
+  description: string;
+  price: number;
+};
 
-  const renderCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={{ uri: item.photo }} style={styles.image} />
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.price}>${item.price}</Text>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => handleAddToCart(item)}
-      >
-        <Text style={styles.addButtonText}>Add to Cart</Text>
-      </TouchableOpacity>
-    </View>
-  );
+type GalleryProps = {
+  title: string;
+  items: Item[];
+};
 
+const Gallery = ({ title, items }: GalleryProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <FlatList
-        data={items}
-        renderItem={renderCard}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={styles.list}
-      />
+      <View style={styles.itemsContainer}>
+        {items.map((item, index) => (
+          <View style={styles.item} key={index}>
+            <Image source={item.photo} style={styles.image} />
+            <Text style={styles.description}>{item.description}</Text>
+            <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Add to Cart</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
@@ -38,58 +36,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#F5F5F5',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
     color: '#333',
+    marginBottom: 20,
   },
-  list: {
-    alignItems: 'center',
+  itemsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: 20,
   },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
+  item: {
+    width: '45%',
     alignItems: 'center',
-    width: '90%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    marginBottom: 20,
   },
   image: {
     width: '100%',
-    height: 150,
-    borderRadius: 8,
+    height: 280,
+    borderRadius: 10,
     marginBottom: 10,
   },
   description: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#555',
     textAlign: 'center',
-    marginBottom: 5,
+    color: '#333',
   },
   price: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#888',
     marginBottom: 10,
   },
-  addButton: {
-    backgroundColor: '#ff7f50',
-    paddingVertical: 10,
+  button: {
+    backgroundColor: '#FF6347',
+    paddingVertical: 8,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 10,
   },
-  addButtonText: {
+  buttonText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
