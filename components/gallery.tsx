@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
 type Item = {
+  id: number;
   photo: any;
   description: string;
   price: number;
@@ -10,19 +11,27 @@ type Item = {
 type GalleryProps = {
   title: string;
   items: Item[];
+  addToCart: (item: Item) => void;  // Function to add item to cart
 };
 
-const Gallery = ({ title, items }: GalleryProps) => {
+const Gallery = ({ title, items, addToCart }: GalleryProps) => {
+  const handleAddToCart = (item: Item) => {
+    addToCart(item);  // Call the parent function to add item to the cart
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.itemsContainer}>
-        {items.map((item, index) => (
-          <View style={styles.item} key={index}>
+        {items.map((item) => (
+          <View style={styles.item} key={item.id}>
             <Image source={item.photo} style={styles.image} />
             <Text style={styles.description}>{item.description}</Text>
             <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleAddToCart(item)}  // Add item to cart on button press
+            >
               <Text style={styles.buttonText}>Add to Cart</Text>
             </TouchableOpacity>
           </View>

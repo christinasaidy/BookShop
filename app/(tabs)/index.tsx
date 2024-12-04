@@ -11,6 +11,7 @@ import BookCategories from '../../components/BookCategories'; // Import BookCate
 import ClassicalSection from '../../components/classical_section'; // Classical section screen
 import FictionSection from '../../components/fiction_section';
 import PhilosophicalSection from '../../components/philo_section';
+import CheckoutScreen from '../../components/Checkout';
 const Stack = createNativeStackNavigator();
 
 const MainScreen = ({ navigation }) => {
@@ -38,6 +39,7 @@ const App = () => {
       <Stack.Screen name="ClassicalSection" component={ClassicalSection} />
       <Stack.Screen name="FictionSection" component={FictionSection} />
       <Stack.Screen name = "PhilosophicalSection" component = {PhilosophicalSection}/>
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
 
     </Stack.Navigator>
   );
