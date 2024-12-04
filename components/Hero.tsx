@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const Hero = ({ navigation }) => {
   const handlePress = () => {
@@ -7,6 +7,7 @@ const Hero = ({ navigation }) => {
   };
 
   return (
+<ScrollView>
     <View style={styles.heroContainer}>
       <View style={styles.imageContainer}>
         <Image
@@ -24,6 +25,7 @@ const Hero = ({ navigation }) => {
         <Text style={styles.buttonText}>Browse Books</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 };
 

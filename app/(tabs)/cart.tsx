@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useCart } from '@/hooks/CartContext';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 
 export default function CartScreen() {
   const { cart } = useCart();
   const navigation = useNavigation();
-
+  
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handleCheckout = () => {
-    navigation.navigate('CheckoutScreen');
+    navigation.navigate('checkout'); // Navigate to CheckoutScreen
   };
 
   return (
