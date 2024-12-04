@@ -16,7 +16,8 @@ const QuoteOfTheDay = () => {
           styles.rowContainer,
           {
             flexDirection: isLargeScreen ? 'row' : 'column', // Stack vertically on small screens
-            alignItems: isLargeScreen ? 'flex-start' : 'center', // Center-align on small screens
+            alignItems: 'center', // Center-align on all screens
+            justifyContent: isLargeScreen ? 'space-between' : 'center', // Adjust layout based on screen size
           },
         ]}
       >
@@ -58,9 +59,8 @@ const styles = StyleSheet.create({
     maxWidth: 1100, // Max width for larger screens
   },
   rowContainer: {
-    justifyContent: 'space-between',
-    width: '100%',
     flexWrap: 'wrap', // Allow wrapping
+    width: '100%',
   },
   quoteContainer: {
     paddingVertical: 20,
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    alignItems: 'center',
+    alignItems: 'center', // Center-align quote content
+    justifyContent: 'center', // Center-align vertically
     marginBottom: 20,
     elevation: 3, // Android shadow
   },

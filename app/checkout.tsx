@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';  // Use the router from expo-router
 
 export default function CheckoutScreen() {
-  const navigation = useNavigation();
+  const router = useRouter(); // Initialize the router
 
   // States for the form inputs
   const [name, setName] = useState('');
@@ -17,10 +17,10 @@ export default function CheckoutScreen() {
       return;
     }
 
-    // You can add your order processing logic here
+    // Add order processing logic here
 
-    // Navigate back to the main screen after checkout
-    navigation.navigate('Main');
+    // Navigate back to the home screen (index) using router.push
+    router.push('/');  // This should navigate to the index screen in the tabs
   };
 
   return (
