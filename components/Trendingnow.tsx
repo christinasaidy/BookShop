@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, useWindowDimensions } from 'react-native';
 import george from "../assets/images/1984.jpg";
 import stranger from "../assets/images/stranger.jpg";
 import brave_new_world from "../assets/images/brave_new_world.jpg";
 import moby_dick from "../assets/images/moby_dick.jpg";
 
 const TrendingNow = () => {
+  const { width } = useWindowDimensions(); // Get current screen width
+
   const books = [
     {
       title: "The Stranger",
@@ -29,18 +31,23 @@ const TrendingNow = () => {
     },
   ];
 
+  // Calculate dynamic styles based on screen size
+  const containerPadding = width > 600 ? 40 : 20;
+  const bookItemWidth = width > 600 ? '22%' : '45%';
+  const imageHeight = width > 600 ? 360 : 280; // test test test 
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { padding: containerPadding, width: width > 600 ? '90%' : '100%' }]}>
       <Text style={styles.title}>Trending Now</Text>
       <View style={styles.booksContainer}>
         {books.map((book, index) => (
-          <View style={styles.bookContainer} key={index}>
-            <Image 
-              source={typeof book.imageUrl === 'string' ? { uri: book.imageUrl } : book.imageUrl} 
-              style={styles.bookImage} 
+          <View style={[styles.bookContainer, { width: bookItemWidth }]} key={index}>
+            <Image
+              source={typeof book.imageUrl === 'string' ? { uri: book.imageUrl } : book.imageUrl}
+              style={[styles.bookImage, { height: imageHeight }]}
             />
             <Text style={styles.bookTitle}>{book.title}</Text>
-            <Text style={styles.bookAuthor}>{book.author}</Text>
+            <Text style={styles.bookAuthor}>{book.author}</Text> 
           </View>
         ))}
       </View>
@@ -50,15 +57,15 @@ const TrendingNow = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    marginLeft: 30,
-    marginRight: 30,
-    backgroundColor: '#F5F5DC',
+    marginHorizontal: 'auto',
+    backgroundColor: '#000', 
+    alignSelf: 'center', 
+    borderRadius: 10, 
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff', 
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -66,16 +73,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    gap: 20,
   },
   bookContainer: {
-    width: '45%',
     alignItems: 'center',
     marginBottom: 20,
   },
   bookImage: {
     width: '100%',
-    height: 280,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -83,13 +87,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#333',
+    color: '#fff', 
   },
   bookAuthor: {
     fontSize: 14,
     textAlign: 'center',
-    color: '#555',
+    color: '#ccc', 
   },
 });
 
-export default TrendingNow; 
+export default TrendingNow;
