@@ -9,11 +9,22 @@ export default function CheckoutScreen() {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleOrderConfirmation = () => {
     // Validation for the form inputs
-    if (!name || !address || !phoneNumber) {
+    if (!name || !address || !phoneNumber || !email) {
       Alert.alert('Error', 'Please fill in all the fields');
+      return;
+    }
+
+    // Validate email format
+    if (!email.includes('@') || !email.includes('.com')) {
+      Alert.alert(
+        'Invalid Email',
+        'Please enter a valid email address with "@" and ".com".',
+        [{ text: 'OK' }]
+      );
       return;
     }
 
@@ -34,6 +45,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your name"
           value={name}
           onChangeText={setName}
+          placeholderTextColor="#bbb" // Light color for placeholders
         />
         
         {/* Address Input */}
@@ -42,6 +54,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your address"
           value={address}
           onChangeText={setAddress}
+          placeholderTextColor="#bbb" // Light color for placeholders
         />
         
         {/* Phone Number Input */}
@@ -51,6 +64,17 @@ export default function CheckoutScreen() {
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
+          placeholderTextColor="#bbb" // Light color for placeholders
+        />
+
+        {/* Email Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={setEmail}
+          placeholderTextColor="#bbb" // Light color for placeholders
+          keyboardType="email-address"
         />
       </View>
 
@@ -71,13 +95,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#000', // Black background
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    color: '#fff', // White text for the title
   },
   formContainer: {
     marginBottom: 30,
@@ -89,13 +114,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 15,
+    color: '#fff', // White text for inputs
   },
   orderSummary: {
     marginBottom: 30,
   },
   text: {
     fontSize: 18,
-    color: '#333',
+    color: '#ddd', // Light gray text for general text
   },
   confirmButton: {
     backgroundColor: '#FF6347',
@@ -105,7 +131,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   confirmButtonText: {
-    color: '#fff',
+    color: '#fff', // White text for the button
     fontSize: 16,
     fontWeight: 'bold',
   },
