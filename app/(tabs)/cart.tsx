@@ -6,7 +6,7 @@ import { useNavigation } from 'expo-router';
 export default function CartScreen() {
   const { cart } = useCart();
   const navigation = useNavigation();
-  
+
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handleCheckout = () => {
@@ -25,8 +25,10 @@ export default function CartScreen() {
             {cart.map((item, index) => (
               <View key={index} style={styles.cartItem}>
                 <Image source={item.photo} style={styles.image} />
-                <Text style={styles.description}>{item.description}</Text>
-                <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                <View style={styles.itemDetails}>
+                  <Text style={styles.description}>{item.description}</Text>
+                  <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+                </View>
               </View>
             ))}
           </View>
@@ -64,12 +66,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   cartItemsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: 10,
+    marginTop: 20,
   },
   cartItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#f9f9f9',
     borderRadius: 8,
     padding: 10,
@@ -78,25 +79,26 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     marginBottom: 20,
-    alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: 150,
+    width: 100,
+    height: 100,
     borderRadius: 8,
-    marginBottom: 10,
+    marginRight: 10,
+  },
+  itemDetails: {
+    flex: 1,
+    justifyContent: 'center',
   },
   description: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 5,
-    textAlign: 'center',
   },
   price: {
     fontSize: 14,
     color: '#888',
-    textAlign: 'center',
   },
   totalContainer: {
     marginTop: 20,
