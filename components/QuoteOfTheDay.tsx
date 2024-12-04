@@ -11,8 +11,8 @@ const QuoteOfTheDay = () => {
 
   return (
     <View style={[styles.quoteSection, { paddingHorizontal: containerPadding }]}>
-      {/* Title for the Quote section */}
-      <Text style={styles.title}>Inspirational Quotes of the Day</Text>
+      {/* Title for the Quote section 
+      <Text style={styles.title}>Inspirational Quotes of the Day</Text>*/}
 
       {/* Row container for the 3 quote boxes */}
       <View style={styles.rowContainer}>
