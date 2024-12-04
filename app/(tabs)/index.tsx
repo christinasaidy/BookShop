@@ -17,12 +17,13 @@ const MainScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Hero navigation={navigation} />
+    
+      <Trending />
+      <Bestseller />
       <QuoteOfTheDay
         quote="A room without books is like a body without a soul."
         author="Marcus Tullius Cicero"
       />
-      <Trending />
-      <Bestseller />
       <Footer />
       <Text style={styles.footer}>© 2024 Bookshop - All Rights Reserved</Text>
     </ScrollView>
