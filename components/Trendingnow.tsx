@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff', 
+    color: '#FAF3E0', // Light color for consistency
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#fff', 
+    color: '#FAF3E0', // Light color for consistency
   },
   bookAuthor: {
     fontSize: 14,
     textAlign: 'center',
-    color: '#ccc', 
+    color: '#FAF3E0', // Light color for consistency
   },
 });
 

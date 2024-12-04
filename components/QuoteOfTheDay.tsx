@@ -1,32 +1,38 @@
-// components/QuoteOfTheDay.js
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from 'react-native';
 
 const QuoteOfTheDay = () => {
+  const { width } = useWindowDimensions(); // Get screen width
+
+  // Adjust layout for larger screens
+  const isLargeScreen = width > 800; // Adjust breakpoint as needed
+  const quoteWidth = isLargeScreen ? '28%' : '30%'; // Slightly reduce quote container size on large screens
+  const containerPadding = isLargeScreen ? 30 : 20; // Reduce padding for larger screens
+
   return (
-    <View style={styles.quoteSection}>
-      {/* Title for the Quote section 
-      <Text style={styles.title}>Inspirational Quotes of the Day</Text>*/}
+    <View style={[styles.quoteSection, { paddingHorizontal: containerPadding }]}>
+      {/* Title for the Quote section */}
+      <Text style={styles.title}>Inspirational Quotes of the Day</Text>
 
       {/* Row container for the 3 quote boxes */}
       <View style={styles.rowContainer}>
         {/* Quote 1 */}
-        <View style={styles.quoteContainer}>
+        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"The only way to do great work is to love what you do."</Text>
           <Text style={styles.authorText}>- Steve Jobs</Text>
-        </View>
+        </TouchableOpacity>
 
         {/* Quote 2 */}
-        <View style={styles.quoteContainer}>
+        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"A room without books is like a body without a soul."</Text>
           <Text style={styles.authorText}>- Marcus Tullius Cicero</Text>
-        </View>
+        </TouchableOpacity>
 
         {/* Quote 3 */}
-        <View style={styles.quoteContainer}>
+        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"The more that you read, the more things you will know."</Text>
           <Text style={styles.authorText}>- Dr. Seuss</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -34,47 +40,61 @@ const QuoteOfTheDay = () => {
 
 const styles = StyleSheet.create({
   quoteSection: {
-    marginTop: 40, // Added margin-top for spacing
-    marginBottom: 30, // Added margin-bottom for spacing
-    paddingHorizontal: 20,
+    marginTop: 60,
+    marginBottom: 30,
     alignItems: 'center',
+    backgroundColor: '#000000', // Soft warm background for the section #FAF3E0
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    paddingVertical: 30,
+    width: '100%',
+    maxWidth: 1100, // Limit max width to avoid too much stretching on large screens
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20, // Space between title and quotes
-    color: '#2a2a2a',
+    marginBottom: 20,
+    color: '#FAF3E0',
+    textAlign: 'center',
   },
   rowContainer: {
-    flexDirection: 'row', // Arrange containers horizontally
-    justifyContent: 'space-between', // Distribute space between quotes
-    width: '100%', // Full width of the container
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    flexWrap: 'wrap', // Allow wrapping of quote boxes if needed
   },
   quoteContainer: {
-    width: '30%', // Each quote container takes up 30% of the width
     paddingVertical: 20,
-    paddingHorizontal: 10,
-    backgroundColor: '#F5F5DC', // Beige background
-    borderRadius: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#FAF3E0', // Warm yellow for the background
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
     alignItems: 'center',
     marginBottom: 20,
+    elevation: 3, // Android shadow effect
+    transform: [{ scale: 1 }],
+    transition: 'transform 0.3s ease',
   },
   quoteText: {
-    fontSize: 16,
+    fontSize: 18,
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#333',
-    marginBottom: 5,
+    marginBottom: 8,
+    fontFamily: 'Georgia', // More elegant font for the quote
   },
   authorText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#555',
+    marginTop: 5,
   },
 });
 

@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
   contactTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff', 
+    color: '#FAF3E0', // Light beige color
     marginBottom: 10,
   },
   contactText: {
     fontSize: 16,
-    color: '#ddd', 
+    color: '#FAF3E0', // Light beige color
     marginBottom: 5,
   },
   email: {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   socialTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff', 
+    color: '#FAF3E0', // Light beige color
     marginBottom: 10,
   },
   iconsContainer: {
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   bookshopInfoText: {
     fontSize: 16,
-    color: '#ddd', 
+    color: '#FAF3E0', // Light beige color
     textAlign: 'center',
     marginBottom: 5,
   },
