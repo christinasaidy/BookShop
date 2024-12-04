@@ -2,20 +2,24 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from 'react-native';
 
 const QuoteOfTheDay = () => {
-  const { width } = useWindowDimensions(); // Get screen width
+  const { width } = useWindowDimensions();
 
-  // Adjust layout for larger screens
-  const isLargeScreen = width > 800; // Adjust breakpoint as needed
-  const quoteWidth = isLargeScreen ? '28%' : '30%'; // Slightly reduce quote container size on large screens
-  const containerPadding = isLargeScreen ? 30 : 20; // Reduce padding for larger screens
+  // Responsive layout adjustments
+  const isLargeScreen = width > 800; // Define a breakpoint for large screens
+  const quoteWidth = isLargeScreen ? '28%' : '90%'; // Full width for small screens
+  const containerPadding = isLargeScreen ? 30 : 20;
 
   return (
     <View style={[styles.quoteSection, { paddingHorizontal: containerPadding }]}>
-      {/* Title for the Quote section 
-      <Text style={styles.title}>Inspirational Quotes of the Day</Text>*/}
-
-      {/* Row container for the 3 quote boxes */}
-      <View style={styles.rowContainer}>
+      <View
+        style={[
+          styles.rowContainer,
+          {
+            flexDirection: isLargeScreen ? 'row' : 'column', // Stack vertically on small screens
+            alignItems: isLargeScreen ? 'flex-start' : 'center', // Center-align on small screens
+          },
+        ]}
+      >
         {/* Quote 1 */}
         <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"The only way to do great work is to love what you do."</Text>
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginBottom: 30,
     alignItems: 'center',
-    backgroundColor: '#000000', // Soft warm background for the section #FAF3E0
+    backgroundColor: '#000000', // Background for the section
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
@@ -51,25 +55,17 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     paddingVertical: 30,
     width: '100%',
-    maxWidth: 1100, // Limit max width to avoid too much stretching on large screens
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#FAF3E0',
-    textAlign: 'center',
+    maxWidth: 1100, // Max width for larger screens
   },
   rowContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    flexWrap: 'wrap', // Allow wrapping of quote boxes if needed
+    flexWrap: 'wrap', // Allow wrapping
   },
   quoteContainer: {
     paddingVertical: 20,
     paddingHorizontal: 15,
-    backgroundColor: '#FAF3E0', // Warm yellow for the background
+    backgroundColor: '#FAF3E0', // Quote background
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
@@ -77,9 +73,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     alignItems: 'center',
     marginBottom: 20,
-    elevation: 3, // Android shadow effect
-    transform: [{ scale: 1 }],
-    transition: 'transform 0.3s ease',
+    elevation: 3, // Android shadow
   },
   quoteText: {
     fontSize: 18,
@@ -87,7 +81,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333',
     marginBottom: 8,
-    fontFamily: 'Georgia', // More elegant font for the quote
+    fontFamily: 'Georgia', // Elegant font
   },
   authorText: {
     fontSize: 16,
