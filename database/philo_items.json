@@ -1,0 +1,23 @@
+[
+    {
+      "photo": "myth_of_sisyphos.png",
+      "description": "Book 1: The Myth of Sisyphus",
+      "price": 5.99
+    },
+    {
+      "photo": "nausea.jpg",
+      "description": "Book 2: Nausea",
+      "price": 5.49
+    },
+    {
+      "photo": "stranger.jpg",
+      "description": "Book 3: The Stranger",
+      "price": 5.99
+    },
+    {
+        "photo": "being_and_time.jpg",
+        "description": "Book 3: Being and Time",
+        "price": 7.99
+      }
+  ]
+  

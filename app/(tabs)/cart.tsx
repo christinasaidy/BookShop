@@ -4,13 +4,15 @@ import { useCart } from '@/hooks/CartContext';
 import { useNavigation } from 'expo-router';
 
 export default function CartScreen() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const navigation = useNavigation();
 
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handleCheckout = () => {
-    navigation.navigate('checkout'); // Navigate to CheckoutScreen
+    const totalPrice = total; // Store total before clearing the cart
+    clearCart();
+    navigation.navigate('checkout', { totalPrice }); // Pass totalPrice to CheckoutScreen
   };
 
   return (

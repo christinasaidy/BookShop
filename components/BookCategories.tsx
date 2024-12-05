@@ -15,6 +15,14 @@ const BookCategories = ({ navigation }) => {
     >
       <Text style={styles.title}>Explore Categories</Text>
       <View style={styles.buttonContainer}>
+
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleCategoryPress('All')}
+        >
+          <Text style={styles.buttonText}>All Books</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleCategoryPress('Classical')}

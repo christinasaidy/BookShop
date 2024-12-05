@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useRouter } from 'expo-router';  // Use the router from expo-router
+import { useRouter } from 'expo-router';
+import { useCart } from '../hooks/CartContext';  // Import the useCart hook
 
 export default function CheckoutScreen() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
+  const { cart } = useCart();  // Access the cart from context
 
   // States for the form inputs
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  
+  // Calculate total price from cart items
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.price, 0).toFixed(2);  // Sum up prices and format to 2 decimals
+  };
 
   const handleOrderConfirmation = () => {
     // Validation for the form inputs
@@ -45,7 +52,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your name"
           value={name}
           onChangeText={setName}
-          placeholderTextColor="#bbb" // Light color for placeholders
+          placeholderTextColor="#bbb" 
         />
         
         {/* Address Input */}
@@ -54,7 +61,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your address"
           value={address}
           onChangeText={setAddress}
-          placeholderTextColor="#bbb" // Light color for placeholders
+          placeholderTextColor="#bbb" 
         />
         
         {/* Phone Number Input */}
@@ -64,7 +71,7 @@ export default function CheckoutScreen() {
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
-          placeholderTextColor="#bbb" // Light color for placeholders
+          placeholderTextColor="#bbb" 
         />
 
         {/* Email Input */}
@@ -73,15 +80,15 @@ export default function CheckoutScreen() {
           placeholder="Enter your email"
           value={email}
           onChangeText={setEmail}
-          placeholderTextColor="#bbb" // Light color for placeholders
+          placeholderTextColor="#bbb" 
           keyboardType="email-address"
         />
       </View>
 
       <View style={styles.orderSummary}>
         <Text style={styles.text}>Order Summary</Text>
-        {/* Here you can replace with the actual cart total */}
-        <Text style={styles.text}>Total: $100.00</Text> 
+        {/* Display the total price dynamically */}
+        <Text style={styles.text}>Total: ${calculateTotal()}</Text>
       </View>
 
       <TouchableOpacity style={styles.confirmButton} onPress={handleOrderConfirmation}>
@@ -95,14 +102,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#000', // Black background
+    backgroundColor: '#000',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: '#fff', // White text for the title
+    color: '#fff',
   },
   formContainer: {
     marginBottom: 30,
@@ -114,14 +121,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 15,
-    color: '#fff', // White text for inputs
+    color: '#fff',
   },
   orderSummary: {
     marginBottom: 30,
   },
   text: {
     fontSize: 18,
-    color: '#ddd', // Light gray text for general text
+    color: '#ddd',
   },
   confirmButton: {
     backgroundColor: '#FF6347',
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   confirmButtonText: {
-    color: '#fff', // White text for the button
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

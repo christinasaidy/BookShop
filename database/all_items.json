@@ -1,0 +1,59 @@
+[
+    {
+      "photo": "myth_of_sisyphos.png",
+      "description": "Book 1: The Myth of Sisyphus",
+      "price": 5.99
+    },
+    {
+      "photo": "nausea.jpg",
+      "description": "Book 2: Nausea",
+      "price": 5.49
+    },
+    {
+      "photo": "stranger.jpg",
+      "description": "Book 3: The Stranger",
+      "price": 5.99
+    },
+    {
+        "photo": "being_and_time.jpg",
+        "description": "Book 3: Being and Time",
+        "price": 7.99
+      },
+      {
+        "photo": "catcher_of_a_rye.jpg",
+        "description": "Book 1: Catcher of a rye",
+        "price": 5.99
+      },
+      {
+        "photo": "hunget_games.jpg",
+        "description": "Book 2: Hunger games",
+        "price": 5.49
+      },
+      {
+        "photo": "the_bell_jar.jpg",
+        "description": "Book 3: The Bell Jar",
+        "price": 5.99
+      },
+      {
+          "photo": "the_fault_of_our_stars.jpg",
+          "description": "Book 3: The Fault in our starts",
+          "price": 5.99
+        },
+
+        {
+            "photo": "1984.jpg",
+            "description": "Book 1: A Journey to the Unknown",
+            "price": 10.99
+          },
+          {
+            "photo": "brave_new_world.jpg",
+            "description": "Book 2: The Art of Learning",
+            "price": 15.49
+          },
+          {
+            "photo": "moby_dick.jpg",
+            "description": "Book 3: Adventures in React Native",
+            "price": 20.99
+          }
+  ]
+  

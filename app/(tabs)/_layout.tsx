@@ -7,14 +7,11 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { CartProvider } from '@/hooks/CartContext'; // Adjust path if needed
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-  <CartProvider>
-
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -27,7 +24,8 @@ export default function TabLayout() {
           },
           default: {},
         }),
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -39,12 +37,23 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: 'Cart',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="cart.fill" color={color} />,  // Changed to cart icon
         }}
       />
-
-
+      <Tabs.Screen
+        name="signUp"
+        options={{
+          title: 'Sign Up',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="signIn"
+        options={{
+          title: 'Sign In',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="lock.fill" color={color} />,  // Added sign in icon
+        }}
+      />
     </Tabs>
-    </CartProvider>
   );
 }

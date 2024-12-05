@@ -1,0 +1,23 @@
+[
+    {
+      "photo": "catcher_of_a_rye.jpg",
+      "description": "Book 1: Catcher of a rye",
+      "price": 5.99
+    },
+    {
+      "photo": "hunget_games.jpg",
+      "description": "Book 2: Hunger games",
+      "price": 5.49
+    },
+    {
+      "photo": "the_bell_jar.jpg",
+      "description": "Book 3: The Bell Jar",
+      "price": 5.99
+    },
+    {
+        "photo": "the_fault_of_our_stars.jpg",
+        "description": "Book 3: The Fault in our starts",
+        "price": 5.99
+      }
+  ]
+  

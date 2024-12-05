@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
 const QuoteOfTheDay = () => {
   const { width } = useWindowDimensions();
 
   // Responsive layout adjustments
   const isLargeScreen = width > 800; // Define a breakpoint for large screens
-  const quoteWidth = isLargeScreen ? '28%' : '90%'; // Full width for small screens
+  const quoteWidth = isLargeScreen ? '28%' : '100%'; // Full width for small screens
   const containerPadding = isLargeScreen ? 30 : 20;
 
   return (
@@ -17,27 +17,27 @@ const QuoteOfTheDay = () => {
           {
             flexDirection: isLargeScreen ? 'row' : 'column', // Stack vertically on small screens
             alignItems: 'center', // Center-align on all screens
-            justifyContent: isLargeScreen ? 'space-between' : 'center', // Adjust layout based on screen size
+            justifyContent: 'center', // Adjust layout based on screen size
           },
         ]}
       >
         {/* Quote 1 */}
-        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
+        <View style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"The only way to do great work is to love what you do."</Text>
           <Text style={styles.authorText}>- Steve Jobs</Text>
-        </TouchableOpacity>
+        </View>
 
         {/* Quote 2 */}
-        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
+        <View style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"A room without books is like a body without a soul."</Text>
           <Text style={styles.authorText}>- Marcus Tullius Cicero</Text>
-        </TouchableOpacity>
+        </View>
 
         {/* Quote 3 */}
-        <TouchableOpacity style={[styles.quoteContainer, { width: quoteWidth }]}>
+        <View style={[styles.quoteContainer, { width: quoteWidth }]}>
           <Text style={styles.quoteText}>"The more that you read, the more things you will know."</Text>
           <Text style={styles.authorText}>- Dr. Seuss</Text>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexWrap: 'wrap', // Allow wrapping
     width: '100%',
+    justifyContent: 'center', // Center content horizontally
+    alignItems: 'center', // Center content vertically
   },
   quoteContainer: {
     paddingVertical: 20,

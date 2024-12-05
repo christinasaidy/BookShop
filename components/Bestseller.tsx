@@ -1,54 +1,61 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, useWindowDimensions, TouchableOpacity } from 'react-native';
 import stranger from "../assets/images/stranger.jpg";
+import { useCart } from '@/hooks/CartContext'; // Import useCart hook
 
 const Bestseller = () => {
   const { width } = useWindowDimensions(); // Get screen width
+  const { addToCart } = useCart(); // Access the addToCart function
 
-  // Calculate dynamic styles based on screen size
+  // Book details
+  const book = {
+    title: "The Stranger by Albert Camus",
+    price: 15.99, // Price of the book
+    photo: stranger, // Reference to the image
+  };
+
+  // Handle Add to Cart
+  const handleAddToCart = () => {
+    addToCart(book); // Add the book to the cart
+    alert(`${book.title} added to cart!`); // Show confirmation
+  };
+
+  // Dynamic styles
   const isLargeScreen = width > 600;
-  const containerPadding = isLargeScreen ? 40 : 15;  // Reduce padding on smaller screens
-  const imageSize = isLargeScreen ? { width: 300, height: 400 } : { width: 150, height: 200 };  // Smaller image on small screens
+  const containerPadding = isLargeScreen ? 40 : 15;
+  const imageSize = isLargeScreen ? { width: 300, height: 400 } : { width: 150, height: 200 };
 
   return (
     <View style={[styles.bestsellerContainer, { padding: containerPadding }]}>
-      {/* Container with dynamic arrangement based on screen size */}
       <View style={[styles.textAndImageContainer, { flexDirection: isLargeScreen ? 'row' : 'column' }]}>
-
-        {/* Left side with the description */}
-        <View style={[styles.textContainer, { marginRight: isLargeScreen ? 40 : 0 }]}>
+        {/* Text Section */}
+        <View style={[styles.textContainer, { marginRight: isLargeScreen ? 40 : 0, marginBottom: isLargeScreen ? 0 : 20 }]}>
           <Text style={[styles.title, { fontSize: isLargeScreen ? 28 : 22 }]}>Best Seller of the Month</Text>
-          <Text style={[styles.bookTitle, { fontSize: isLargeScreen ? 26 : 18 }]}>The Stranger</Text>
+          <Text style={[styles.bookTitle, { fontSize: isLargeScreen ? 26 : 20 }]}>The Stranger</Text>
           <Text style={[styles.author, { fontSize: isLargeScreen ? 20 : 14 }]}>by Albert Camus</Text>
 
-          {/* Book Genre Badge */}
           <View style={styles.genreBadge}>
             <Text style={styles.genreText}>Philosophy</Text>
           </View>
 
-          {/* Book Description */}
           <Text style={[styles.description, { fontSize: isLargeScreen ? 18 : 14 }]}>
             "The Stranger" is a philosophical novel by Albert Camus. It tells the story of Meursault, an emotionally detached
             man who commits an inexplicable act of violence. The book explores themes of existentialism, the meaning of life,
             and the absurdity of the human condition.
           </Text>
 
-          {/* Rating Section with Stars */}
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingText}>⭐ 4.5 (125 Reviews)</Text>
           </View>
         </View>
 
-        {/* Right side with the book image */}
-        <Image
-          source={stranger}
-          style={[styles.bookImage, imageSize]}
-        />
+        {/* Image Section */}
+        <Image source={stranger} style={[styles.bookImage, imageSize]} />
       </View>
 
-      {/* Add to Cart / Buy Now button, moved under the image */}
-      <TouchableOpacity style={styles.buyButton}>
-        <Text style={styles.buyButtonText}>Buy Now</Text>
+      {/* Add To Cart Button */}
+      <TouchableOpacity style={styles.buyButton} onPress={handleAddToCart}>
+        <Text style={styles.buyButtonText}>Add To Cart</Text>
       </TouchableOpacity>
     </View>
   );
