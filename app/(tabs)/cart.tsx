@@ -11,10 +11,10 @@ export default function CartScreen() {
 
   const handleCheckout = () => {
     const totalPrice = total; // Store total before clearing the cart
-    clearCart();
     navigation.navigate('checkout', { totalPrice }); // Pass totalPrice to CheckoutScreen
+    clearCart(); // Clear cart after navigating
   };
-
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <SafeAreaView>

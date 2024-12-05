@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#FAF3E0',
     marginBottom: 30,
     textShadowColor: '#aaa',
     textShadowOffset: { width: 1, height: 1 },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#FAF3E0',
     paddingVertical: 15,
     paddingHorizontal: 25,
     borderRadius: 12,

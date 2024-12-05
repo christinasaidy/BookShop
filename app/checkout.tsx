@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useCart } from '../hooks/CartContext';  // Import the useCart hook
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 export default function CheckoutScreen() {
   const router = useRouter();
-  const { cart } = useCart();  // Access the cart from context
+  const { totalPrice } = useLocalSearchParams(); // Retrieve total price passed from CartScreen
 
   // States for the form inputs
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  
-  // Calculate total price from cart items
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price, 0).toFixed(2);  // Sum up prices and format to 2 decimals
-  };
 
   const handleOrderConfirmation = () => {
     // Validation for the form inputs
@@ -35,10 +29,10 @@ export default function CheckoutScreen() {
       return;
     }
 
-    // Add order processing logic here
-
-    // Navigate back to the home screen (index) using router.push
-    router.push('/');  // This should navigate to the index screen in the tabs
+    // Simulate order confirmation (you can add real processing logic here)
+    Alert.alert('Order Confirmed', 'Your order has been placed successfully!', [
+      { text: 'OK', onPress: () => router.push('/') },
+    ]);
   };
 
   return (
@@ -52,7 +46,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your name"
           value={name}
           onChangeText={setName}
-          placeholderTextColor="#bbb" 
+          placeholderTextColor="#bbb"
         />
         
         {/* Address Input */}
@@ -61,7 +55,7 @@ export default function CheckoutScreen() {
           placeholder="Enter your address"
           value={address}
           onChangeText={setAddress}
-          placeholderTextColor="#bbb" 
+          placeholderTextColor="#bbb"
         />
         
         {/* Phone Number Input */}
@@ -71,7 +65,7 @@ export default function CheckoutScreen() {
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
-          placeholderTextColor="#bbb" 
+          placeholderTextColor="#bbb"
         />
 
         {/* Email Input */}
@@ -80,15 +74,15 @@ export default function CheckoutScreen() {
           placeholder="Enter your email"
           value={email}
           onChangeText={setEmail}
-          placeholderTextColor="#bbb" 
+          placeholderTextColor="#bbb"
           keyboardType="email-address"
         />
       </View>
 
       <View style={styles.orderSummary}>
         <Text style={styles.text}>Order Summary</Text>
-        {/* Display the total price dynamically */}
-        <Text style={styles.text}>Total: ${calculateTotal()}</Text>
+        {/* Display the total price passed from CartScreen */}
+        <Text style={styles.text}>Total: ${totalPrice}</Text>
       </View>
 
       <TouchableOpacity style={styles.confirmButton} onPress={handleOrderConfirmation}>
