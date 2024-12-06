@@ -1,37 +1,81 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 
 const Hero = ({ navigation }) => {
+  const [userName, setUserName] = useState('Guest'); // Default to 'Guest'
+  const [loading, setLoading] = useState(true); // Loading state
+
+  // Refresh user data when the screen gains focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkLoginStatus = async () => {
+        try {
+          const loggedIn = await AsyncStorage.getItem('isLoggedIn');
+          if (loggedIn === 'true') {
+            const user = await AsyncStorage.getItem('user');
+            const parsedUser = user ? JSON.parse(user) : null;
+            setUserName(parsedUser?.firstName || 'Guest');
+          } else {
+            setUserName('Guest');
+          }
+        } catch (error) {
+          console.error('Error checking login status:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      checkLoginStatus();
+    }, [])
+  );
+
   const handlePress = () => {
     navigation.navigate('BookCategories'); // Navigate to BookCategories screen
   };
 
-  return (
-<ScrollView>
-    <View style={styles.heroContainer}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: 'https://images.pexels.com/photos/14985735/pexels-photo-14985735/free-photo-of-a-person-reading-a-book.jpeg' }}
-          style={styles.image}
-        />
-        <View style={styles.overlay} />
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#1ABC9C" />
       </View>
-      <Text style={styles.title}>Welcome to The Bookshop</Text>
-      <Text style={styles.description}>
-        Explore a wide variety of books across all genres. Whether you're looking for fiction, non-fiction, or educational books,
-        we have something for everyone!
-      </Text>
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Browse Books</Text>
-      </TouchableOpacity>
-    </View>
+    );
+  }
+
+  return (
+    <ScrollView>
+      <View style={styles.heroContainer}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{
+              uri: 'https://images.pexels.com/photos/14985735/pexels-photo-14985735/free-photo-of-a-person-reading-a-book.jpeg',
+            }}
+            style={styles.image}
+          />
+          <View style={styles.overlay} />
+        </View>
+        <Text style={styles.title}>Welcome, {userName}!</Text> {/* Display user's name */}
+        <Text style={styles.description}>
+          Explore a wide variety of books across all genres. Whether you're looking for fiction, non-fiction, or educational books,
+          we have something for everyone!
+        </Text>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Browse Books</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000000',
+  },
   heroContainer: {
-    alignItems: 'center', 
+    alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 30,
     backgroundColor: '#000000', // Keep black background
@@ -77,7 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     borderRadius: 8,
     alignItems: 'center',
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.15,
     shadowRadius: 8,

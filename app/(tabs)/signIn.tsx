@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useRouter } from 'expo-router'; // Import useRouter
@@ -6,63 +6,103 @@ import { useRouter } from 'expo-router'; // Import useRouter
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
   const router = useRouter(); // Initialize useRouter
+
+  // Check if the user is already signed in
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const loggedIn = await AsyncStorage.getItem('isLoggedIn');
+        console.log('Logged in status:', loggedIn);
+        if (loggedIn === 'true') {
+          setIsLoggedIn(true);
+          router.push('/'); // Navigate to home page if already signed in
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    };
+    checkLoginStatus();
+  }, []);
 
   const handleSignIn = async () => {
     try {
-      // Get the existing users from AsyncStorage
       const existingUsers = await AsyncStorage.getItem('users');
-      const users = existingUsers ? JSON.parse(existingUsers) : []; // If no users exist, initialize as an empty array
-
-      // Find the user with the matching email and password
+      const users = existingUsers ? JSON.parse(existingUsers) : [];
+  
       const user = users.find(
         (user) => user.email === email && user.password === password
       );
-
+  
       if (user) {
-        // Successfully signed in
-        Alert.alert('Success', 'You are signed in!');
-        console.log('User signed in:', user);
-        router.push('/'); // Navigate to home page (or your main screen)
+        Alert.alert('Success', `Welcome back, ${user.firstName}!`);
+        await AsyncStorage.setItem('isLoggedIn', 'true');
+        await AsyncStorage.setItem('user', JSON.stringify(user)); // Save user info
+        setIsLoggedIn(true);
+        router.push('/'); // Navigate to home page
       } else {
-        // Invalid credentials
         Alert.alert('Error', 'Invalid email or password.');
       }
     } catch (error) {
-      // Handle any errors that occur during retrieval
       console.error('Error signing in:', error);
       Alert.alert('Error', 'There was an error signing you in.');
     }
   };
+  
 
+  const handleSignOut = async () => {
+    try {
+      await AsyncStorage.removeItem('isLoggedIn');
+      await AsyncStorage.removeItem('user');
+      setIsLoggedIn(false);
+      router.push('/signIn'); // Navigate back to the sign-in page
+    } catch (error) {
+      console.error('Error signing out:', error);
+      Alert.alert('Error', 'There was an error signing you out.');
+    }
+  };
+  
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      {!isLoggedIn ? (
+        <>
+          <Text style={styles.title}>Sign In</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        placeholderTextColor="#aaa"
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholderTextColor="#aaa"
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        placeholderTextColor="#aaa"
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholderTextColor="#aaa"
+          />
 
-      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity style={styles.linkButton} onPress={() => router.push('/signup')}>
-        <Text style={styles.linkText}>Don't have an account? Sign up</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.linkButton} onPress={() => router.push('/signUp')}>
+            <Text style={styles.linkText}>Don't have an account? Sign up</Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <>
+          <Text style={styles.title}>You are signed in!</Text>
+
+          <TouchableOpacity style={styles.button} onPress={handleSignOut}>
+            <Text style={styles.buttonText}>Sign Out</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };

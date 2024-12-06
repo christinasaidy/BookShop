@@ -11,34 +11,58 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(true); // State to track whether we are in Sign Up or Sign In mode
   const router = useRouter();
 
+  // Validate input fields
+  const validateInputs = () => {
+    if (!firstName || !lastName || !email || !password) {
+      Alert.alert('Error', 'All fields are required.');
+      return false;
+    }
+
+    // Check if email includes '@gmail.com' and a valid email structure
+    const emailRegex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Please enter a valid Gmail email address.');
+      return false;
+    }
+
+    return true;
+  };
+
   // Handle user signup
   const handleSignUp = async () => {
+    if (!validateInputs()) return;
+  
     const userData = { firstName, lastName, email, password };
-
+  
     try {
       const existingUsers = await AsyncStorage.getItem('users');
       const users = existingUsers ? JSON.parse(existingUsers) : [];
-
+  
       // Check if the email already exists
-      const emailExists = users.some(user => user.email === email);
-      if (emailExists) {
+      if (users.some((user) => user.email === email)) {
         Alert.alert('Error', 'Email already in use');
         return;
       }
-
+  
       users.push(userData);
       await AsyncStorage.setItem('users', JSON.stringify(users));
-
+  
       Alert.alert('Success', 'User signed up successfully!');
-      setIsSignUp(false); // Switch to Sign In after successful Sign Up
+      router.push('/signIn'); // Navigate to the Sign-In page
     } catch (error) {
       console.error('Error saving user data:', error);
       Alert.alert('Error', 'There was an error saving your data.');
     }
   };
+  
 
   // Handle user sign in
   const handleSignIn = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Email and password are required.');
+      return;
+    }
+
     try {
       const existingUsers = await AsyncStorage.getItem('users');
       const users = existingUsers ? JSON.parse(existingUsers) : [];

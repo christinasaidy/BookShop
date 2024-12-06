@@ -129,9 +129,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
     color: '#FAF3E0',
     textAlign: 'center',
+
   },
   booksContainer: {
     flexDirection: 'row',
@@ -144,8 +145,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   bookImage: {
-    width: 100,
-    height: 150,
+    width: 120,
+    height: 180,
     resizeMode: 'cover',
   },
   viewDetailsButton: {
