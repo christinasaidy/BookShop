@@ -11,14 +11,17 @@ const QuoteOfTheDay = () => {
 
   return (
     <View style={[styles.quoteSection, { paddingHorizontal: containerPadding }]}>
+      {/* Header for the section */}
+      <Text style={styles.header}>Inspirational Quotes of the Day</Text>
+
       <View
-        style={[
-          styles.rowContainer,
-          {
+        style={[ 
+          styles.rowContainer, 
+          { 
             flexDirection: isLargeScreen ? 'row' : 'column', // Stack vertically on small screens
             alignItems: 'center', // Center-align on all screens
             justifyContent: 'center', // Adjust layout based on screen size
-          },
+          }
         ]}
       >
         {/* Quote 1 */}
@@ -46,7 +49,6 @@ const QuoteOfTheDay = () => {
 const styles = StyleSheet.create({
   quoteSection: {
     marginTop: 60,
-    marginBottom: 30,
     alignItems: 'center',
     backgroundColor: '#000000', // Background for the section
     borderRadius: 12,
@@ -57,6 +59,13 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     width: '100%',
     maxWidth: 1100, // Max width for larger screens
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FAF3E0',
+    marginBottom: 30,
+    textAlign: 'center', // Center align the header
   },
   rowContainer: {
     flexWrap: 'wrap', // Allow wrapping

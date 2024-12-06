@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 export default function CheckoutScreen() {
   const router = useRouter();
@@ -11,6 +12,23 @@ export default function CheckoutScreen() {
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const loadUserDetails = async () => {
+      try {
+        const user = await AsyncStorage.getItem('user');
+        if (user) {
+          const parsedUser = JSON.parse(user);
+          setName(parsedUser.firstName + ' ' + parsedUser.lastName); // Autofill name
+          setEmail(parsedUser.email); // Autofill email
+        }
+      } catch (error) {
+        console.error('Error loading user details:', error);
+      }
+    };
+
+    loadUserDetails();
+  }, []); // Run only once when the component is mounted
 
   const handleOrderConfirmation = () => {
     // Validation for the form inputs

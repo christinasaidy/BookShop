@@ -40,7 +40,11 @@ export default function CartScreen() {
           <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
         </View>
 
-        <TouchableOpacity style={styles.checkoutButton} onPress={handleCheckout}>
+        <TouchableOpacity
+          style={[styles.checkoutButton, { opacity: cart.length === 0 ? 0.5 : 1 }]} // Disable button if cart is empty
+          onPress={handleCheckout}
+          disabled={cart.length === 0} // Disable the button if cart is empty
+        >
           <Text style={styles.checkoutText}>Proceed to Checkout</Text>
         </TouchableOpacity>
       </SafeAreaView>
